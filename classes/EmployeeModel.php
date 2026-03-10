@@ -1,5 +1,5 @@
 <?php
-require(__DIR__ . '/autoload.php');
+require(__DIR__ . '/../autoload.php');
 
 class EmployeeModel {
     private $con;
@@ -19,15 +19,15 @@ class EmployeeModel {
     public $is_fired;
 
     public function __construct($id){
-        $this->$db = new Database();
-        $this->$con = $this->$db->getConnection();
+        $this->db = new Database();
+        $this->con = $this->$db->getConnection();
         $sql = 'select * from employees where id_employee = ' . $id;
         $sth = $this->con->prepare($sql);
         $sth->execute();
         $res = $sth->fetchAll();
         $this->id_emp = $res[0]['id_employee'];
         $this->surname = $res[0]['surname'];
-        $this->name = $res[0]['name'];
+        $this->name = $res[0]['name_emp'];
         $this->patronymic = $res[0]['patronymic'];
         $this->passport_serial_number = $res[0]['passport_serial_number'];
         $this->passport_number = $res[0]['passport_number'];

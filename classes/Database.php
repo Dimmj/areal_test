@@ -7,6 +7,6 @@ class Database {
     }
 
     public function getConnection() {
-        return this->$dbh;
+        return $this->dbh;
     }
 }
