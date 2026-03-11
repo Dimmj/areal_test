@@ -40,7 +40,6 @@ class EmployeeRepository {
         ",hired = '" . $emp->hired .
         "', is_fired = " . $emp->is_fired . 
         " where id_employee = " . $emp->id_employee;
-        error_log($sql);
         $sth = $this->con->prepare($sql);
         $sth->execute();
     }

@@ -64,6 +64,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             </button>
                         </form>
                     </td>
+                    <td>
+                        <!-- Форма для редактирования -->
+                        <form method="POST" action="/edit.php">
+                            <input type="hidden" name="employee_id" value="<?php echo $emp['id_employee']; ?>">
+                            <button type="submit">Редактировать</button>
+                        </form>
+                    </td>
                 </tr>
             <?php endforeach; ?>
         </tbody>
