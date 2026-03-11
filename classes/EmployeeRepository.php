@@ -25,21 +25,22 @@ class EmployeeRepository {
         return $sth->fetchAll()[0]['id_position'];
     }
     
-    public function edit($id, $params) {
+    public function edit($emp) {
         $sql = "update employees set 
-        surname = '" . $params['surname'] .
-        "', name = '" . $params['name'] . 
-        "', patronymic = '" . $params['patronymic'] .
-        ",passport_serial_number = " . $params['passport_serial_number'] . 
-        ",passport_number = " . $params['passport_number'] .
-        ",email = '" . $params['email'] . 
-        "', address = '" . $params['address'] .
-        "', department = " . $this->foreign_department($params['department']) .
-        ",position_emp = " . $this->foreign_position($params['position']) .
-        ",salary = " . $params['salary'] .
-        ",hired_date = '" . $params['hired_date'] .
-        "', is_fired = " . $params['is_fired'] . 
-        "where id_employee = " . $params['id'];
+        surname = '" . $emp->surname .
+        "', name_emp = '" . $emp->name_emp . 
+        "', patronymic = '" . $emp->patronymic .
+        "',passport_serial_number = " . $emp->passport_serial_number . 
+        ",passport_number = " . $emp->passport_number .
+        ",email = '" . $emp->email . 
+        "', address = '" . $emp->address .
+        "', department = " . $emp->department .
+        ",position_emp = " . $emp->position_emp .
+        ",salary = " . $emp->salary .
+        ",hired = '" . $emp->hired .
+        "', is_fired = " . $emp->is_fired . 
+        " where id_employee = " . $emp->id_employee;
+        error_log($sql);
         $sth = $this->con->prepare($sql);
         $sth->execute();
     }
@@ -63,7 +64,10 @@ class EmployeeRepository {
     }
 
     public function get_all(){
-        $sql = 'select * from employees where is_fired = false';
+        $sql = 'select id_employee, surname, name_emp, patronymic, passport_serial_number, passport_number, email, address, departments.department, positions.position_name, salary, hired, is_fired from employees  
+                join departments on employees.department = departments.id_department
+                join positions on employees.position_emp = positions.id_position
+                where is_fired = false';
         $sth = $this->con->prepare($sql);
         $sth->execute();
         return $sth->fetchAll();
@@ -71,13 +75,13 @@ class EmployeeRepository {
 
     public function filter($department, $position){
         if ($department && $position){
-            $sql = 'select * from employees where department = ' . this->foreign_department($department) . ' and position_emp = ' . this->foreign_position($position) . ')';
+            $sql = 'select * from employees where department = ' . $this->foreign_department($department) . ' and position_emp = ' . $this->foreign_position($position) . ')';
             $sth = $this->con->prepare($sql);
             $sth->execute();
             return $sth->fetchAll();
         }
         else if ($department && !$position) {
-            $sql = 'select * from employees where department = ' . this->foreign_department($department) . ')';
+            $sql = 'select * from employees where department = ' . $this->foreign_department($department) . ')';
             $sth = $this->con->prepare($sql);
             $sth->execute();
             return $sth->fetchAll();
