@@ -82,22 +82,14 @@ class EmployeeRepository {
 
     public function filter($department, $position){
         if ($department && $position){
-            $sql = 'select * from employees where department = ' . $this->foreign_department($department) . ' and position_emp = ' . $this->foreign_position($position) . ')';
-            $sth = $this->con->prepare($sql);
-            $sth->execute();
-            return $sth->fetchAll();
+            $sql = "select * from employees where department = '" . $this->foreign_department($department) . "' and position_emp = '" . $this->foreign_position($position) . "'";
+
         }
         else if ($department && !$position) {
-            $sql = 'select * from employees where department = ' . $this->foreign_department($department) . ')';
-            $sth = $this->con->prepare($sql);
-            $sth->execute();
-            return $sth->fetchAll();
+            $sql = "select * from employees where department = '" . $this->foreign_department($department) . "'";
         }
         else if (!$department && $position) {
-            $sql = 'select * from employees where position_emp = ' . $this->foreign_position($position) . ')';
-            $sth = $this->con->prepare($sql);
-            $sth->execute();
-            return $sth->fetchAll();
+            $sql = "select * from employees where position_emp = '" . $this->foreign_position($position) . "'";
         }
         $sth = $this->con->prepare($sql);
         $sth->execute();

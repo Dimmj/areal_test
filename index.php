@@ -3,6 +3,15 @@ require(__DIR__ . '/autoload.php');
 $rep = new EmployeeRepository();
 $employees = $rep->get_all();
 ?>
+<form name="filter" action="/filter.php" method="POST">
+    <h3>Отдел </h3>
+    <input type="text" name="department">
+    <h3>Должность </h3>
+    <input type="text" name="position_emp">
+
+    <button type="submit">Применить</button>
+</form>
+<hr>
 <form name="search" action="/search.php" method="POST">
     <h3>Фамилия </h3>
     <input type="text" name="surname">
@@ -14,7 +23,7 @@ $employees = $rep->get_all();
 
     <button type="submit">Поиск</button>
 </form>
-
+<hr>
 <form name="add" action="/add.php" method="POST">
     <h3>Фамилия </h3>
     <input type="text" name="surname">
@@ -50,7 +59,7 @@ $employees = $rep->get_all();
 
     <button type="submit">Добавить сотрудника</button>
 </form>
-
+<hr>
 <?php if (empty($employees)): ?>
     <p>Нет сотрудников для отображения</p>
 <?php else: ?>
