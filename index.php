@@ -3,6 +3,17 @@ require(__DIR__ . '/autoload.php');
 $rep = new EmployeeRepository();
 $employees = $rep->get_all();
 ?>
+<form name="search" action="/search.php" method="POST">
+    <h3>Фамилия </h3>
+    <input type="text" name="surname">
+    <h3>Имя </h3>
+    <input type="text" name="name">
+
+    <h3>Отчество </h3>
+    <input type="text" name="patronymic">
+
+    <button type="submit">Поиск</button>
+</form>
 
 <form name="add" action="/add.php" method="POST">
     <h3>Фамилия </h3>

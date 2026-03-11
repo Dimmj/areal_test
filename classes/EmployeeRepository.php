@@ -73,6 +73,13 @@ class EmployeeRepository {
         return $sth->fetchAll();
     }
 
+    public function get_by_fio($surname, $name, $patronymic){
+        $sql = "select * from employees where surname = '" . $surname . "' and name_emp = '" . $name . "' and patronymic = '" . $patronymic . "'";
+        $sth = $this->con->prepare($sql);
+        $sth->execute();
+        return $sth->fetchAll();
+    }
+
     public function filter($department, $position){
         if ($department && $position){
             $sql = 'select * from employees where department = ' . $this->foreign_department($department) . ' and position_emp = ' . $this->foreign_position($position) . ')';
@@ -87,7 +94,7 @@ class EmployeeRepository {
             return $sth->fetchAll();
         }
         else if (!$department && $position) {
-            $sql = 'select * from employees where position_emp = ' . this->foreign_position($position) . ')';
+            $sql = 'select * from employees where position_emp = ' . $this->foreign_position($position) . ')';
             $sth = $this->con->prepare($sql);
             $sth->execute();
             return $sth->fetchAll();
