@@ -1,9 +1,16 @@
 <?php
 require(__DIR__ . '/autoload.php');
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $rep = new EmployeeRepository();
     $emp = new EmployeeModel($_POST['employee_id']);
+    //если уволен
+    if ($emp->is_fired) {
+        header('Location: /index.php');
+    }
+    echo '<link rel="stylesheet" type="text/css" href="style/style.css">';
 }?>
 <a href="http://localhost:8000/">Вернуться на главную</a>
+<br><br>
 <table>
     <thead>
         <tr>
@@ -37,8 +44,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </td>
             <td><?php echo $emp->email; ?></td>
             <td><?php echo $emp->address; ?></td>
-            <td><?php echo $emp->department; ?></td>
-            <td><?php echo $emp->position_emp; ?></td>
+            <td><?php echo $rep->get_departments()[$emp->department - 1][0]; ?></td>
+            <td><?php echo $rep->get_positions()[$emp->position_emp - 1][0]; ?></td>
             <td><?php echo $emp->salary ?> ₽</td>
             <td><?php echo $emp->hired; ?></td>
             <td>
@@ -84,10 +91,33 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <input type="text" name="address">
 
     <h3>Отдел </h3>
-    <input type="text" name="department">
-
+    <select name="department">
+        <option value="">Выберите отдел</option>
+        <?php
+        // Получаем данные из функции
+        $departments = $rep->get_departments();
+        // Выводим опции
+        foreach ($departments as $department):
+        ?>
+        <option value="<?php echo $department['department']; ?>">
+            <?php echo $department['department']; ?>
+        </option>
+        <?php endforeach; ?>
+    </select>
     <h3>Должность </h3>
-    <input type="text" name="position">
+    <select name="position">
+        <option value="">Выберите должность</option>
+        <?php
+        // Получаем данные из функции
+        $positions = $rep->get_positions();
+        // Выводим опции
+        foreach ($positions as $position):
+        ?>
+        <option value="<?php echo $position['position_name']; ?>">
+            <?php echo $position['position_name']; ?>
+        </option>
+        <?php endforeach; ?>
+    </select>
 
     <h3>Зарплата </h3>
     <input type="text" name="salary">

@@ -33,11 +33,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     
     if (isset($_POST['department']) && !empty($_POST['department'])) {
         $emp->department = $_POST['department'];
-    }
+    } else{
+       $emp->id_to_text();
+        }
     
     if (isset($_POST['position']) && !empty($_POST['position'])) {
         $emp->position_emp = $_POST['position'];
-    }
+    } else{
+        $emp->id_to_text();
+        }
     
     if (isset($_POST['salary']) && !empty($_POST['salary'])) {
         $emp->salary = $_POST['salary'];

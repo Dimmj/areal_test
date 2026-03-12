@@ -3,13 +3,16 @@ require(__DIR__ . '/autoload.php');
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $rep = new EmployeeRepository();
     $s_emp = $rep->filter($_POST['department'], $_POST['position_emp']);
+    echo '<link rel="stylesheet" type="text/css" href="style/style.css">';
 }?>
 
 <?php if (empty($s_emp)): ?>
     <a href="http://localhost:8000/">Вернуться на главную</a>
+    <br>
     <p>Нет сотрудников для отображения</p>
 <?php else: ?>
     <a href="http://localhost:8000/">Вернуться на главную</a>
+    <br><br>
     <table>
         <thead>
             <tr>

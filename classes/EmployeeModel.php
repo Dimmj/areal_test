@@ -39,4 +39,27 @@ class EmployeeModel {
         $this->hired = $res[0]['hired'];
         $this->is_fired = $res[0]['is_fired'];
     }
+
+    public function id_to_text(){
+        try {
+            $sql = "select department from departments where id_department = " . $this->department;
+            $sth = $this->con->prepare($sql);
+            $sth->execute();
+            $this->department = $sth->fetchAll()[0]['department'];
+        } catch (PDOException $e) {
+        error_log("Ошибка в filter: " . $e->getMessage());
+        error_log("SQL запрос: " . $sql);
+        }
+
+        try {
+            $sql = "select position_name from positions where id_position = " . $this->position_emp;
+            $sth = $this->con->prepare($sql);
+            $sth->execute();
+
+            $this->position_emp = $sth->fetchAll()[0]['position_name'];
+        } catch (PDOException $e) {
+        error_log("Ошибка в filter: " . $e->getMessage());
+        error_log("SQL запрос: " . $sql);
+        }
+    }
 }

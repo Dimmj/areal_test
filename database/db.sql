@@ -28,3 +28,6 @@ CREATE TABLE IF NOT EXISTS public.employees
     hired date NOT NULL,
     is_fired boolean NOT NULL
 );
+
+insert into departments values (1, 'кибербезопасность'), (2, 'поддержка');
+insert into positions values (1, 'директор'), (2, 'сотрудник');

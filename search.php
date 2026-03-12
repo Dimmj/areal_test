@@ -2,14 +2,17 @@
 require(__DIR__ . '/autoload.php');
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $rep = new EmployeeRepository();
-    $s_emp = $rep->get_by_fio($_POST['surname'], $_POST['name'], $_POST['patronymic']);
+    $s_emp = $rep->search($_POST['surname'], $_POST['name'], $_POST['patronymic']);
+    echo '<link rel="stylesheet" type="text/css" href="style/style.css">';
 }?>
 
 <?php if (empty($s_emp)): ?>
     <a href="http://localhost:8000/">Вернуться на главную</a>
+    <br>
     <p>Нет сотрудников для отображения</p>
 <?php else: ?>
     <a href="http://localhost:8000/">Вернуться на главную</a>
+    <br><br>
     <table>
         <thead>
             <tr>
