@@ -62,10 +62,16 @@ echo '<link rel="stylesheet" type="text/css" href="style/style.css">';
     <input type="text" name="patronymic" required>
 
     <h3>Серия паспорта </h3>
-    <input type="text" name="passport_serial_number" required>
+    <input type="text" name="passport_serial_number" pattern="[0-9]{4}" 
+       maxlength="4" 
+       title="Введите ровно 4 цифры"
+       placeholder="XXXX" required>
 
     <h3>Номер паспорта </h3>
-    <input type="text" name="passport_number" required>
+    <input type="text" name="passport_number" pattern="[0-9]{4}" 
+       maxlength="6" 
+       title="Введите ровно 6 цифр"
+       placeholder="XXXXXX" required>
 
     <h3>Электронная почта </h3>
     <input type="text" name="email" required>
